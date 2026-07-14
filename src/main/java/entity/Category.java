@@ -1,14 +1,20 @@
 package entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.hibernate.validator.constraints.Length;
 
 import enums.Status;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -18,6 +24,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Getter
@@ -25,7 +32,6 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "category")
 public class Category {
 	
 	@Id
@@ -35,12 +41,17 @@ public class Category {
 	private String name;
 	private String description;
 	
-	@NotNull
 	@Enumerated(EnumType.STRING)
-	private Status status;
+	protected Status status;
 	
-	private LocalDateTime createdAt;
-	private LocalDateTime updatedAt;
+	@Column(name = "created_at")
+	protected LocalDateTime createdAt;
+	
+	@Column(name = "updated_at")
+	protected LocalDateTime updatedAt;
+	
+	@OneToMany(mappedBy = "category")
+	private List<Product> products = new ArrayList<>();
 	
 	@PrePersist
 	public void prePersist() {
