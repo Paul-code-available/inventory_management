@@ -1,4 +1,4 @@
-package paul.com.inventory_management.inventory_management;
+package com.paul.inventory_management;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
