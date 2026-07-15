@@ -1,6 +1,7 @@
 package entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import enums.Status;
 import jakarta.persistence.Column;
@@ -10,6 +11,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import lombok.AllArgsConstructor;
@@ -48,6 +50,9 @@ public class Supplier {
 	
 	@Column(name = "updated_at")
 	private LocalDateTime updatedAt;
+	
+	@OneToMany(mappedBy = "supplier")
+	private List<ProductSupplier> productSupplier;
 	
 	@PrePersist
 	public void prePersist() {

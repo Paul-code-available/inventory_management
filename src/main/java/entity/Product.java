@@ -2,6 +2,7 @@ package entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import enums.Status;
 import jakarta.annotation.Generated;
@@ -14,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -60,6 +62,9 @@ public class Product {
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Long category;
+	
+	@OneToMany(mappedBy = "product")
+	private List<ProductSupplier> productSupplier;
 	
 	@PrePersist
 	public void prePersist() {
