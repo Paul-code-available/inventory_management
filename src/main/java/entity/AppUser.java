@@ -1,6 +1,8 @@
 package entity;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import enums.Status;
 import jakarta.persistence.Column;
@@ -10,6 +12,10 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import lombok.AllArgsConstructor;
@@ -48,6 +54,10 @@ public class AppUser {
 	
 	@Column(name = "updated_at")
 	private LocalDateTime updatedAt;
+	
+	@ManyToOne
+	@JoinColumn(name = "role_id")
+	private Role role;
 	
 	@PrePersist
 	public void prePersist() {

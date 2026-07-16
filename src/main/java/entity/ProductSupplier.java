@@ -11,8 +11,18 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
+@Builder
 public class ProductSupplier {
 	
 	@Id
@@ -28,7 +38,7 @@ public class ProductSupplier {
 	
 	@ManyToOne
 	@JoinColumn(name = "product_id")
-	private Long product;
+	private Product product;
 	
 	@ManyToOne
 	@JoinColumn(name = "supplier_id")
