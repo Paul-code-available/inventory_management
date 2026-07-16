@@ -1,11 +1,10 @@
 package entity;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import enums.Status;
-import jakarta.annotation.Generated;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -14,11 +13,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,45 +25,39 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter
 @Setter
-@Builder
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product {
+@Builder
+public class AppUser {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String sku;
-	private String name;
-	private String brand;
-	private String description;
+	@Column(name = "first_name")
+	private String firstName;
+
+	@Column(name = "last_name")
+	private String lastName;
 	
-	private BigDecimal purchasePrice;
-	private BigDecimal salePrice;
-	
-	private int stock;
-	private int minimumStock;
-	
-	private String image_url;
+	private String email;
+	private String phone;
+	private String password;
 	
 	@Enumerated(EnumType.STRING)
-	protected Status status;
+	private Status status;
 	
 	@Column(name = "created_at")
-	protected LocalDateTime createdAt;
+	private LocalDateTime createdAt;
 	
 	@Column(name = "updated_at")
-	protected LocalDateTime updatedAt;
+	private LocalDateTime updatedAt;
 	
 	@ManyToOne
-	@JoinColumn(name = "category_id")
-	private Category category;
-	
-	@OneToMany(mappedBy = "product")
-	private List<ProductSupplier> productSupplier;
+	@JoinColumn(name = "role_id")
+	private Role role;
 	
 	@PrePersist
 	public void prePersist() {
@@ -76,5 +69,5 @@ public class Product {
 	public void preUpdate() {
 		updatedAt = LocalDateTime.now();
 	}
-	
+
 }
