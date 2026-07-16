@@ -32,7 +32,7 @@ public class ProductSupplier {
 	
 	@ManyToOne
 	@JoinColumn(name = "supplier_id")
-	private Long supplier;
+	private Supplier supplier;
 	
 	@PrePersist
 	public void prePersist() {

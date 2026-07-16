@@ -61,7 +61,7 @@ public class Product {
 	
 	@ManyToOne
 	@JoinColumn(name = "category_id")
-	private Long category;
+	private Category category;
 	
 	@OneToMany(mappedBy = "product")
 	private List<ProductSupplier> productSupplier;
