@@ -1,8 +1,10 @@
 package mapper;
 
+import dto.AppUserRequestDTO;
 import dto.AppUserResponseDTO;
 import dto.RoleResponseDTO;
 import entity.AppUser;
+import entity.Role;
 
 public class AppUserMapper {
 	
@@ -19,6 +21,19 @@ public class AppUserMapper {
 						user.getRole().getName()
 						)
 				);
+	}
+	
+	public AppUser toEntity(AppUserRequestDTO dto, Role role) {
+		
+		return AppUser.builder()
+				.firstName(dto.firstName())
+				.lastName(dto.lastName())
+				.email(dto.email())
+				.phone(dto.phone())
+				.password(dto.password())
+				.role(role)
+				.build();
+		
 	}
 
 }

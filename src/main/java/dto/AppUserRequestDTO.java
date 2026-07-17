@@ -9,6 +9,6 @@ public record AppUserRequestDTO(
 		String password,
 		Long role
 		
-		){
+		){	
 	
 }
