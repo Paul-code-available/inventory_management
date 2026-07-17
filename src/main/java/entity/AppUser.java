@@ -68,6 +68,9 @@ public class AppUser {
 	@PreUpdate
 	public void preUpdate() {
 		updatedAt = LocalDateTime.now();
+	
 	}
+	
+
 
 }
