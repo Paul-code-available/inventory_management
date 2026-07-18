@@ -6,7 +6,7 @@ public record InventoryMovementRequestDTO(
 	
 		MovementType movementType,
 		Integer quantity, 
-		Long product
+		Long productId
 		
 		) {
 	

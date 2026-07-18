@@ -7,6 +7,8 @@ import dto.InventoryMovementRequestDTO;
 import dto.InventoryMovementResponseDTO;
 import dto.ProductResponseDTO;
 import entity.InventoryMovement;
+import entity.Product;
+import enums.MovementType;
 import lombok.RequiredArgsConstructor;
 
 @Component
@@ -29,6 +31,15 @@ public class InventoryMovementMapper {
 					
 				);
 		
+	}
+	
+	public InventoryMovement toEntity(InventoryMovementRequestDTO dto, Product product) {
+		
+		return InventoryMovement.builder()
+				.movementType(dto.movementType())
+				.quantity(dto.quantity())
+				.product(product)
+				.build();
 	}
 
 }

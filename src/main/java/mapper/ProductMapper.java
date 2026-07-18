@@ -2,6 +2,7 @@ package mapper;
 
 import org.springframework.stereotype.Component;
 
+import dto.ProductRequestDTO;
 import dto.ProductResponseDTO;
 import entity.Product;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,16 @@ public class ProductMapper {
 				product.getStock(),
 				categoryMapper.toDTO(product.getCategory())
 				);
+		
+	}
+	
+	public Product toEntity(ProductRequestDTO dto) {
+		
+		return Product.builder()
+				.name(dto.name())
+				.salePrice(dto.salePrice())
+				.stock(dto.stock())
+				.build();
 		
 	}
 
