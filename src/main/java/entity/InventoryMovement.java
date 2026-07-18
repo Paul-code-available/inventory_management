@@ -37,7 +37,6 @@ public class InventoryMovement {
 	@Column(name = "movement_type")
 	private MovementType movementType;
 	
-	private String notes;
 	private Integer quantity;
 	
 	@Column(name = "unit_cost")
