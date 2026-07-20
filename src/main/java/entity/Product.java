@@ -45,7 +45,7 @@ public class Product {
 	private BigDecimal purchasePrice;
 	private BigDecimal salePrice;
 	
-	private int stock;
+	private Integer stock;
 	private int minimumStock;
 	
 	private String image_url;
