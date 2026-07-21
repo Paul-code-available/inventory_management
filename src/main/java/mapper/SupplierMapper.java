@@ -1,9 +1,12 @@
 package mapper;
 
+import org.springframework.stereotype.Component;
+
 import dto.SupplierRequestDTO;
 import dto.SupplierResponseDTO;
 import entity.Supplier;
 
+@Component
 public class SupplierMapper {
 	
 	public SupplierResponseDTO toDTO(Supplier supplier) {
