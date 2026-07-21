@@ -7,7 +7,7 @@ public record ProductRequestDTO(
 		String name,
 		BigDecimal salePrice,
 		int stock,
-		Long category
+		Long categoryId
 		
 		) {
 

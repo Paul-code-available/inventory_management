@@ -32,7 +32,7 @@ public class ProductSupplier {
 	private BigDecimal supplierPrice;
 	private BigDecimal supplierSku;
 	
-	private int leadTimeDays = 0;
+	private Integer leadTimeDays;
 	
 	private LocalDateTime createdAt;
 	

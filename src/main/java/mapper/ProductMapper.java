@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import dto.ProductRequestDTO;
 import dto.ProductResponseDTO;
+import entity.Category;
 import entity.Product;
 import lombok.RequiredArgsConstructor;
 
@@ -25,12 +26,13 @@ public class ProductMapper {
 		
 	}
 	
-	public Product toEntity(ProductRequestDTO dto) {
+	public Product toEntity(ProductRequestDTO dto, Category category) {
 		
 		return Product.builder()
 				.name(dto.name())
 				.salePrice(dto.salePrice())
 				.stock(dto.stock())
+				.category(category)
 				.build();
 		
 	}
