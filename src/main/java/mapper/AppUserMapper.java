@@ -1,11 +1,14 @@
 package mapper;
 
+import org.springframework.stereotype.Component;
+
 import dto.AppUserRequestDTO;
 import dto.AppUserResponseDTO;
 import dto.RoleResponseDTO;
 import entity.AppUser;
 import entity.Role;
 
+@Component
 public class AppUserMapper {
 	
 	public AppUserResponseDTO toDTO(AppUser user) {
