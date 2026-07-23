@@ -32,5 +32,55 @@ public class CategoryService {
 		return categoryMapper.toDTO(savedCategory);
 	
 	}
+
+	public CategoryResponseDTO findById(Long id) throws Exception {
+		
+		Category category = categoryRepository.findById(id).orElseThrow(() -> new Exception("Categoria no encontrada"));
+		
+		return categoryMapper.toDTO(category);
+			
+	}
+	
+	public void delete(Long id) throws Exception {
+		
+		Category category = categoryRepository.findById(id).orElseThrow(() -> new Exception("Categoria no encontrada"));
+		
+		if (category.getProducts().stream().anyMatch(product -> product.getStatus() == Status.ACTIVE)) {
+			// retornar una expcepcion 
+		}
+
+		category.setStatus(Status.INACTIVE);
+		
+		categoryRepository.save(category);
+		
+	}
+	
+	public CategoryResponseDTO update(Long id, CategoryRequestDTO dto) throws Exception {
+		
+		Category category = categoryRepository.findById(id).orElseThrow(() -> new Exception("Categoria no encontrada"));
+
+		if (dto.name() != null ) {
+			
+			if (categoryRepository.existsByNameIgnoreCaseAndIdNot(dto.name(), id)) {
+				// excepcion 
+			}
+			
+			category.setName(dto.name());
+		}
+		
+		if (dto.description() != null ) {
+			category.setDescription(dto.description());
+		}
+
+		Category updatedCategory = categoryRepository.save(category);
+		
+		return categoryMapper.toDTO(updatedCategory);
+		
+	}
 	
 }
+
+
+
+
+
