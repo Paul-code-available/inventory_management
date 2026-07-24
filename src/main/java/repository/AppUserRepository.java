@@ -8,8 +8,8 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long> {
 	
 	boolean existsByEmailAndStatusActive(String email);
 	
-	boolean existsByEmailAndIdNot(Long id, String email);
+	boolean existsByEmailAndIdNot(String email, Long id);
 	
-	boolean existByPhoneAndIdNot(Long id, String phone);
+	boolean existByPhoneAndIdNot(String phone, Long id);
 	
 }
