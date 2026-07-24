@@ -2,7 +2,7 @@ package mapper;
 
 import org.springframework.stereotype.Component;
 
-import dto.AppUserRequestDTO;
+import dto.AppUserCreateDTO;
 import dto.AppUserResponseDTO;
 import dto.RoleResponseDTO;
 import entity.AppUser;
@@ -26,7 +26,7 @@ public class AppUserMapper {
 				);
 	}
 	
-	public AppUser toEntity(AppUserRequestDTO dto, Role role) {
+	public AppUser toEntity(AppUserCreateDTO dto, Role role) {
 		
 		return AppUser.builder()
 				.firstName(dto.firstName())

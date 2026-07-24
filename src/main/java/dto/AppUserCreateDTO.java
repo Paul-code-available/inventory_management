@@ -3,7 +3,7 @@ package dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public record AppUserRequestDTO(
+public record AppUserCreateDTO(
 		
 		@NotNull(message = "El nombre es obligatorio")
 		String firstName,
@@ -13,6 +13,7 @@ public record AppUserRequestDTO(
 		
 		@NotBlank(message = "El email es obligatorio")
 		String email,
+		
 		String phone,
 		
 		@NotBlank(message = "La contraseña es obligatoria")
