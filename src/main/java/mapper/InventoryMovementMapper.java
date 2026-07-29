@@ -3,7 +3,7 @@ package mapper;
 import org.springframework.stereotype.Component;
 
 import dto.CategoryResponseDTO;
-import dto.InventoryMovementRequestDTO;
+import dto.InventoryMovementCreateDTO;
 import dto.InventoryMovementResponseDTO;
 import dto.ProductResponseDTO;
 import entity.InventoryMovement;
@@ -33,7 +33,7 @@ public class InventoryMovementMapper {
 		
 	}
 	
-	public InventoryMovement toEntity(InventoryMovementRequestDTO dto, Product product) {
+	public InventoryMovement toEntity(InventoryMovementCreateDTO dto, Product product) {
 		
 		return InventoryMovement.builder()
 				.movementType(dto.movementType())

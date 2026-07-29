@@ -4,7 +4,7 @@ import enums.MovementType;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
-public record InventoryMovementRequestDTO(
+public record InventoryMovementCreateDTO(
 	
 		
 		MovementType movementType,

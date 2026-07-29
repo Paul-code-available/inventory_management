@@ -48,7 +48,8 @@ public class Product {
 	private Integer stock;
 	private int minimumStock;
 	
-	private String image_url;
+	@Column(name = "image_url")
+	private String imageUrl;
 	
 	@Enumerated(EnumType.STRING)
 	protected Status status;

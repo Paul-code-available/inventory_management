@@ -2,7 +2,7 @@ package mapper;
 
 import org.springframework.stereotype.Component;
 
-import dto.ProductRequestDTO;
+import dto.ProductCreateDTO;
 import dto.ProductResponseDTO;
 import entity.Category;
 import entity.Product;
@@ -26,12 +26,18 @@ public class ProductMapper {
 		
 	}
 	
-	public Product toEntity(ProductRequestDTO dto, Category category) {
+	public Product toEntity(ProductCreateDTO dto, Category category) {
 		
 		return Product.builder()
+				.sku(dto.sku())
 				.name(dto.name())
+				.brand(dto.brand())
+				.description(dto.description())
+				.purchasePrice(dto.purchasePrice())
 				.salePrice(dto.salePrice())
 				.stock(dto.stock())
+				.minimumStock(dto.minimumStock())
+				.imageUrl(dto.imgUrl())
 				.category(category)
 				.build();
 		

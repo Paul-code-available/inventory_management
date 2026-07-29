@@ -2,10 +2,14 @@ package service;
 
 import org.springframework.stereotype.Service;
 
-import dto.CategoryRequestDTO;
+import dto.CategoryCreateDTO;
 import dto.CategoryResponseDTO;
+import dto.CategoryUpdateDTO;
 import entity.Category;
 import enums.Status;
+import exception.BusinessRuleException;
+import exception.ResourceAlreadyExistsException;
+import exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import mapper.CategoryMapper;
 import repository.CategoryRepository;
@@ -17,10 +21,10 @@ public class CategoryService {
 	private final CategoryRepository categoryRepository;
 	private final CategoryMapper categoryMapper;
 
-	public CategoryResponseDTO create (CategoryRequestDTO dto) {
+	public CategoryResponseDTO create (CategoryCreateDTO dto) {
 		
 		if (categoryRepository.existsByNameIgnoreCase(dto.name())) {
-			// retornar una excepcion
+			throw new ResourceAlreadyExistsException("Category already exists with name " + dto.name());
 		}
 		
 		Category category = categoryMapper.toEntity(dto);
@@ -33,20 +37,20 @@ public class CategoryService {
 	
 	}
 
-	public CategoryResponseDTO findById(Long id) throws Exception {
+	public CategoryResponseDTO findById(Long id) {
 		
-		Category category = categoryRepository.findById(id).orElseThrow(() -> new Exception("Categoria no encontrada"));
+		Category category = categoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Category not found with id " + id));
 		
 		return categoryMapper.toDTO(category);
 			
 	}
 	
-	public void delete(Long id) throws Exception {
+	public void delete(Long id) {
 		
-		Category category = categoryRepository.findById(id).orElseThrow(() -> new Exception("Categoria no encontrada"));
+		Category category = categoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Category not found with id " + id));
 		
 		if (category.getProducts().stream().anyMatch(product -> product.getStatus() == Status.ACTIVE)) {
-			// retornar una expcepcion 
+			throw new BusinessRuleException("Cannot delete categories with active products");
 		}
 
 		category.setStatus(Status.INACTIVE);
@@ -55,14 +59,14 @@ public class CategoryService {
 		
 	}
 	
-	public CategoryResponseDTO update(Long id, CategoryRequestDTO dto) throws Exception {
+	public CategoryResponseDTO update(Long id, CategoryUpdateDTO dto) {
 		
-		Category category = categoryRepository.findById(id).orElseThrow(() -> new Exception("Categoria no encontrada"));
+		Category category = categoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Category not found with id " + id));
 
 		if (dto.name() != null ) {
 			
 			if (categoryRepository.existsByNameIgnoreCaseAndIdNot(dto.name(), id)) {
-				// excepcion 
+				throw new ResourceAlreadyExistsException("Category already exists with name " + dto.name());
 			}
 			
 			category.setName(dto.name());
