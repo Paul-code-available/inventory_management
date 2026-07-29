@@ -26,6 +26,7 @@ public class AppUserService {
 	private final RoleRepository roleRepository;
 	private final AppUserMapper appUserMapper;
 	
+	// TODO: encrypt password
 	public AppUserResponseDTO create(AppUserCreateDTO dto)  {
 		
 		if (appUserRepository.existsByEmailAndStatusActive(dto.email())) {
@@ -95,7 +96,7 @@ public class AppUserService {
 			user.setPhone(dto.phone());
 		}
 		
-		if (dto.password() != null) { // encriptar contraseña
+		if (dto.password() != null) { 
 			user.setPassword(dto.password());
 		}
 		
