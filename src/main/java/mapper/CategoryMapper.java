@@ -2,7 +2,7 @@ package mapper;
 
 import org.springframework.stereotype.Component;
 
-import dto.CategoryRequestDTO;
+import dto.CategoryCreateDTO;
 import dto.CategoryResponseDTO;
 import entity.Category;
 
@@ -21,7 +21,7 @@ public class CategoryMapper {
 		
 	}
 	
-	public Category toEntity(CategoryRequestDTO dto) {
+	public Category toEntity(CategoryCreateDTO dto) {
 		
 		return Category.builder()
 				.name(dto.name())

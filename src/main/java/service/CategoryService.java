@@ -2,8 +2,9 @@ package service;
 
 import org.springframework.stereotype.Service;
 
-import dto.CategoryRequestDTO;
+import dto.CategoryCreateDTO;
 import dto.CategoryResponseDTO;
+import dto.CategoryUpdateDTO;
 import entity.Category;
 import enums.Status;
 import exception.BusinessRuleException;
@@ -20,7 +21,7 @@ public class CategoryService {
 	private final CategoryRepository categoryRepository;
 	private final CategoryMapper categoryMapper;
 
-	public CategoryResponseDTO create (CategoryRequestDTO dto) {
+	public CategoryResponseDTO create (CategoryCreateDTO dto) {
 		
 		if (categoryRepository.existsByNameIgnoreCase(dto.name())) {
 			throw new ResourceAlreadyExistsException("Category already exists with name " + dto.name());
@@ -58,7 +59,7 @@ public class CategoryService {
 		
 	}
 	
-	public CategoryResponseDTO update(Long id, CategoryRequestDTO dto) {
+	public CategoryResponseDTO update(Long id, CategoryUpdateDTO dto) {
 		
 		Category category = categoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Category not found with id " + id));
 

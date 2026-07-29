@@ -4,7 +4,7 @@ import org.hibernate.validator.constraints.Length;
 
 import jakarta.validation.constraints.NotNull;
 
-public record CategoryRequestDTO(
+public record CategoryCreateDTO(
 		
 		@NotNull(message = "El nombre es obligatorio")
 		String name,
