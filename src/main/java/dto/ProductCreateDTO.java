@@ -18,19 +18,19 @@ public record ProductCreateDTO(
 		String description,
 		
 		@NotNull(message = "Purchase price is required")
-		@Positive(message = "Purchase price have to be greater than cero")
+		@Positive(message = "Purchase price have to be greater than zero")
 		BigDecimal purchasePrice,
 		
 		@NotNull(message = "Sale price is required")
-		@Positive(message = "Sale price have to be greater than cero")
+		@Positive(message = "Sale price have to be greater than zero")
 		BigDecimal salePrice,
 		
 		@NotNull(message = "Stock is required")
-		@Positive(message = "Stock have to be greater than cero")
+		@Positive(message = "Stock have to be greater than zero")
 		int stock,
 		
 		@NotNull(message = "Minimum stock is required")
-		@Positive(message = "Minimum stock have to be greater than cero")
+		@Positive(message = "Minimum stock have to be greater than zero or zero")
 		int minimumStock,
 		
 		String imgUrl,
