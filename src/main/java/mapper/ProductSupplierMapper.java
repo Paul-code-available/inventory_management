@@ -3,7 +3,7 @@ package mapper;
 import org.springframework.stereotype.Component;
 
 import dto.ProductResponseDTO;
-import dto.ProductSupplierRequestDTO;
+import dto.ProductSupplierCreateDTO;
 import dto.ProductSupplierResponseDTO;
 import entity.Product;
 import entity.ProductSupplier;
@@ -27,10 +27,11 @@ public class ProductSupplierMapper {
 		
 	}
 	
-	public ProductSupplier toEntity(ProductSupplierRequestDTO dto, Product product, Supplier supplier) {
+	public ProductSupplier toEntity(ProductSupplierCreateDTO dto, Product product, Supplier supplier) {
 		
 		return ProductSupplier.builder()
 				.supplierPrice(dto.supplierPrice())
+				.supplierSku(dto.supplierSku())
 				.leadTimeDays(dto.leadTimeDays())
 				.product(product)
 				.supplier(supplier)
