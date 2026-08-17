@@ -2,7 +2,7 @@ package mapper;
 
 import org.springframework.stereotype.Component;
 
-import dto.SupplierRequestDTO;
+import dto.SupplierCreateDTO;
 import dto.SupplierResponseDTO;
 import entity.Supplier;
 
@@ -21,7 +21,7 @@ public class SupplierMapper {
 		
 	}
 	
-	public Supplier toEntity(SupplierRequestDTO dto) {
+	public Supplier toEntity(SupplierCreateDTO dto) {
 		
 		return Supplier.builder()
 				.companyName(dto.companyName())

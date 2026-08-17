@@ -3,7 +3,7 @@ package dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public record SupplierRequestDTO(
+public record SupplierCreateDTO(
 		
 		@NotNull(message = "El nombre de la empresa es obligatoria")
 		String companyName,
