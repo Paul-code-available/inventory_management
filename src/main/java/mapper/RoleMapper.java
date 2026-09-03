@@ -1,6 +1,6 @@
 package mapper;
 
-import dto.RoleRequestDTO;
+import dto.RoleCreateDTO;
 import dto.RoleResponseDTO;
 import entity.Role;
 
@@ -14,7 +14,7 @@ public class RoleMapper {
 				);
 	}
 	
-	public Role toEntity(RoleRequestDTO dto) {
+	public Role toEntity(RoleCreateDTO dto) {
 		
 		return Role.builder()
 				.name(dto.name())
