@@ -3,8 +3,9 @@ package service;
 import org.hibernate.ResourceClosedException;
 import org.springframework.stereotype.Service;
 
-import dto.RoleRequestDTO;
+import dto.RoleCreateDTO;
 import dto.RoleResponseDTO;
+import dto.RoleUpdateDTO;
 import entity.Role;
 import exception.BusinessRuleException;
 import exception.ResourceAlreadyExistsException;
@@ -21,7 +22,7 @@ public class RoleService {
 	private final RoleRepository roleRepository;
 	private final RoleMapper roleMapper;
 	
-	public RoleResponseDTO create(RoleRequestDTO dto) {
+	public RoleResponseDTO create(RoleCreateDTO dto) {
 		
 		if (roleRepository.existsByName(dto.name())) {
 			throw new BusinessRuleException("Already exists a role with name " + dto.name());
@@ -35,7 +36,7 @@ public class RoleService {
 		
 	}
 	
-	public RoleResponseDTO update(Long id, RoleRequestDTO dto) {
+	public RoleResponseDTO update(Long id, RoleUpdateDTO dto) {
 		
 		Role role = roleRepository.findById(id).orElseThrow(()
 				-> new ResourceNotFoundException("Role not found with id " + id));
