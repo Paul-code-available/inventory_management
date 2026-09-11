@@ -25,7 +25,7 @@ public record ProductUpdateDTO(
 		int stock,
 		
 		@PositiveOrZero
-		int minimumStock,
+		Integer minimumStock,
 		
 		String imgUrl,
 		

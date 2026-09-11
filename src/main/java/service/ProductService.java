@@ -91,7 +91,7 @@ public class ProductService {
 			
 		}
 		
-		if (dto.minimumStock() != product.getMinimumStock()) {
+		if (dto.minimumStock() != null) {
 			
 			product.setMinimumStock(dto.minimumStock());
 						
@@ -122,6 +122,10 @@ public class ProductService {
 		
 		Product product = productRepository.findById(id).orElseThrow(()
 				-> new ResourceNotFoundException("Product not found with id " + id));
+		
+		if (product.getStatus() == Status.INACTIVE) {
+			throw new BusinessRuleException("Product is already inactive");
+		}
 		
 		product.setStatus(Status.INACTIVE);
 		
