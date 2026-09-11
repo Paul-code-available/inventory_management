@@ -1,3 +1,4 @@
+
 package com.paul.inventory_management;
 
 import org.springframework.boot.SpringApplication;
