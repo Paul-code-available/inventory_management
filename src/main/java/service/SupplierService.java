@@ -58,6 +58,8 @@ public class SupplierService {
 		
 		supplier.setStatus(Status.INACTIVE);
 		
+		supplierRepositoy.save(supplier);
+		
 	}
 	
 	public SupplierResponseDTO update(Long id, SupplierUpdateDTO dto) {
@@ -88,7 +90,7 @@ public class SupplierService {
 		
 		if (dto.taxId() != null) {
 			
-			if (supplierRepositoy.existByTaxId(dto.taxId())) {
+			if (supplierRepositoy.existByTaxIdAndIdNot(dto.taxId(), id)) {
 				throw new BusinessRuleException("Tax id already exists");
 			}
 			
