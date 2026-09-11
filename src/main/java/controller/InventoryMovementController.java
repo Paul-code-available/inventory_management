@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 import service.InventoryMovementService;
 
 @RestController
-@RequestMapping("/api/inventorymovement")
+@RequestMapping("/api/inventory-movements")
 @RequiredArgsConstructor
 public class InventoryMovementController {
 	
@@ -40,7 +40,7 @@ public class InventoryMovementController {
 		
 	}
 	
-	@GetMapping()
+	@GetMapping
 	public ResponseEntity<List<InventoryMovementResponseDTO>> findAll() {
 		
 		return ResponseEntity.status(HttpStatus.OK).body(inventoryMovementService.findAll());
