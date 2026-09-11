@@ -101,7 +101,7 @@ public class ProductSupplierService {
 		}
 		
 		if (dto.supplierSku() != null) {
-			productSupplier.setSupplierPrice(dto.supplierSku());
+			productSupplier.setSupplierSku(dto.supplierSku());
 		}
 		
 		if (dto.leadTimeDays() != null) {
