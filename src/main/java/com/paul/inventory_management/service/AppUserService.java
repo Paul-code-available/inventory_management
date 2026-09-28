@@ -101,7 +101,7 @@ public class AppUserService {
 			user.setPassword(dto.password());
 		}
 		
-		if (dto.role() != null) {
+		if (dto.role() != null || dto.role() != 0) {
 			
 			Role newRole = roleRepository.findById(dto.role()).orElseThrow(() -> new ResourceNotFoundException("Role not found with id " + dto.role()));
 			
