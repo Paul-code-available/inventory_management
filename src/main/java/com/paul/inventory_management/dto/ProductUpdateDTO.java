@@ -15,16 +15,16 @@ public record ProductUpdateDTO(
 		
 		String description,
 		
-		@Positive
+		@Positive(message = "Purchase price have to be greater than zero")
 		BigDecimal purchasePrice,
 		
-		@Positive
+		@Positive(message = "Sale price have to be greater than zero")
 		BigDecimal salePrice,
 		
-		@Positive
+		@Positive(message = "Stock have to be greater than zero")
 		int stock,
 		
-		@PositiveOrZero
+		@Positive(message = "Minimum stock have to be greater than zero or zero")
 		Integer minimumStock,
 		
 		String imgUrl,
