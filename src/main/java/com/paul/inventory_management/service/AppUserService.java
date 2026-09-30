@@ -11,6 +11,7 @@ import com.paul.inventory_management.entity.AppUser;
 import com.paul.inventory_management.entity.Category;
 import com.paul.inventory_management.entity.Role;
 import com.paul.inventory_management.enums.Status;
+import com.paul.inventory_management.exception.BusinessRuleException;
 import com.paul.inventory_management.exception.ResourceAlreadyExistsException;
 import com.paul.inventory_management.exception.ResourceNotFoundException;
 import com.paul.inventory_management.mapper.AppUserMapper;
@@ -68,36 +69,33 @@ public class AppUserService {
 		
 		AppUser user = appUserRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
 		
+		if (appUserRepository.existsByStatus(id)) {
+			throw new BusinessRuleException("Can not update a user inactive");
+		}
 		
-		if (dto.email() != null) {
+		if (dto.email() != null && !dto.email().isBlank() && !dto.email().isBlank()) {
 			if (appUserRepository.existsByEmailAndIdNot(dto.email(), id)) {
 				throw new ResourceAlreadyExistsException("User already exists with email " + dto.email());
 			}
-		}
-		
-		if (dto.phone() != null) {
-			if (appUserRepository.existsByPhoneAndIdNot(dto.phone(), id)) {
-				throw new ResourceAlreadyExistsException("User already exists with phone " + dto.phone());
-			}
-		}
-		
-		if (dto.firstName() != null) {
-			user.setFirstName(dto.firstName());
-		}
-		
-		if (dto.lastName() != null) {
-			user.setLastName(dto.lastName());
-		}
-		
-		if (dto.email() != null) {
 			user.setEmail(dto.email());
 		}
 		
-		if (dto.phone() != null) {
+		if (dto.phone() != null && !dto.phone().isBlank()) {
+			if (appUserRepository.existsByPhoneAndIdNot(dto.phone(), id)) {
+				throw new ResourceAlreadyExistsException("User already exists with phone " + dto.phone());
+			}
 			user.setPhone(dto.phone());
 		}
 		
-		if (dto.password() != null) { 
+		if (dto.firstName() != null && !dto.firstName().isBlank()) {
+			user.setFirstName(dto.firstName());
+		}
+		
+		if (dto.lastName() != null && !dto.lastName().isBlank()) {
+			user.setLastName(dto.lastName());
+		}
+		
+		if (dto.password() != null && !dto.password().isBlank()) { 
 			user.setPassword(dto.password());
 		}
 		
