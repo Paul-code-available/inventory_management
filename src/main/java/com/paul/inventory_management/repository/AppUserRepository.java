@@ -1,5 +1,7 @@
 package com.paul.inventory_management.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.paul.inventory_management.entity.AppUser;
@@ -15,4 +17,9 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long> {
 	
 	boolean existsByStatus(Long id);
 	
+	Optional<AppUser> findByEmail(String email);
+	
 }
+	
+	
+	
