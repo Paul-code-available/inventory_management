@@ -2,6 +2,8 @@ package com.paul.inventory_management.security;
 
 import java.beans.Encoder;
 
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,11 +36,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 				.password(user.getPassword())
 				.authorities(new SimpleGrantedAuthority(user.getRole().getName()))
 				.build();
-		
-		
-		
-	}
-	
-	
+
+	}	
 
 }

@@ -55,6 +55,13 @@ public class AppUserService {
 		
 	}
 	
+	public AppUserResponseDTO findByEmail(String email) {
+		
+		AppUser user = appUserRepository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("User not found with email " + email));
+	
+		return appUserMapper.toDTO(user);
+	}
+	
 	public void delete(Long id) {
 		
 		AppUser user = appUserRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id)); ;
