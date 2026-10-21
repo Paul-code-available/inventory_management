@@ -19,6 +19,7 @@ import com.paul.inventory_management.entity.AppUser;
 import com.paul.inventory_management.security.CustomUserDetailsService;
 import com.paul.inventory_management.security.SecurityConfig;
 import com.paul.inventory_management.service.AppUserService;
+import com.paul.inventory_management.service.JwtService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,8 +31,10 @@ public class AuthController {
 	private final AuthenticationManager authenticationManager;
 	private final AppUserService appUserService;
 	
+	private final JwtService jwtService;
+	
 	@PostMapping("/login")
-	public Long login(@RequestBody LoginRequestDTO loginRequest) {
+	public String login(@RequestBody LoginRequestDTO loginRequest) {
 		
 		UsernamePasswordAuthenticationToken authRequest = 
 				new UsernamePasswordAuthenticationToken(loginRequest.email(), loginRequest.password());
@@ -42,7 +45,9 @@ public class AuthController {
 		
 		AppUserResponseDTO user = appUserService.findByEmail(username);
 		
-		return user.id();
+		String token = jwtService.generateToken(user.id().toString());
+		
+		return token;
 		
 	}
 
