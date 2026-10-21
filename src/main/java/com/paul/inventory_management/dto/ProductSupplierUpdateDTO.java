@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Positive;
 
 public record ProductSupplierUpdateDTO(
 		
+		@Positive(message = "El precio del proveedor debe ser mayor a 0")
 		BigDecimal supplierPrice,
 		
 		BigDecimal supplierSku,

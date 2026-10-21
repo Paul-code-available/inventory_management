@@ -20,20 +20,15 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping
-    public ResponseEntity<ProductResponseDTO> create(
-            @Valid @RequestBody ProductCreateDTO dto) {
+    public ResponseEntity<ProductResponseDTO> create(@Valid @RequestBody ProductCreateDTO dto) {
 
         ProductResponseDTO response = productService.create(dto);
 
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<ProductResponseDTO> update(
-            @PathVariable Long id,
-            @Valid @RequestBody ProductUpdateDTO dto) {
+    public ResponseEntity<ProductResponseDTO> update(@PathVariable Long id, @Valid @RequestBody ProductUpdateDTO dto) {
 
         ProductResponseDTO response = productService.update(id, dto);
 
@@ -41,8 +36,7 @@ public class ProductController {
     }
 
     @PatchMapping("/{id}/deactivate")
-    public ResponseEntity<Void> deactivate(
-            @PathVariable Long id) {
+    public ResponseEntity<Void> deactivate(@PathVariable Long id) {
 
         productService.deactivate(id);
 
@@ -50,8 +44,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductResponseDTO> findById(
-            @PathVariable Long id) {
+    public ResponseEntity<ProductResponseDTO> findById(@PathVariable Long id) {
 
         ProductResponseDTO response = productService.findById(id);
 
@@ -59,8 +52,7 @@ public class ProductController {
     }
 
     @GetMapping("/sku/{sku}")
-    public ResponseEntity<ProductResponseDTO> findBySku(
-            @PathVariable String sku) {
+    public ResponseEntity<ProductResponseDTO> findBySku(@PathVariable String sku) {
 
         ProductResponseDTO response = productService.findBySku(sku);
 

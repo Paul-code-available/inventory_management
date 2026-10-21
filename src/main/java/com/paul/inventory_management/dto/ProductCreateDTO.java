@@ -2,15 +2,18 @@ package com.paul.inventory_management.dto;
 
 import java.math.BigDecimal;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 public record ProductCreateDTO(
 		
 		@NotNull(message = "Sku is required")
+		@NotBlank(message = "Sku is required")
 		String sku,
 		
 		@NotNull(message = "Name is required")
+		@NotBlank(message = "Name is required")
 		String name,
 		
 		String brand,
