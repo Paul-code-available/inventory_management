@@ -2,6 +2,9 @@ package com.paul.inventory_management.service;
 
 import javax.management.AttributeNotFoundException;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password4j.BcryptPassword4jPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.paul.inventory_management.dto.AppUserCreateDTO;
@@ -17,6 +20,7 @@ import com.paul.inventory_management.exception.ResourceNotFoundException;
 import com.paul.inventory_management.mapper.AppUserMapper;
 import com.paul.inventory_management.repository.AppUserRepository;
 import com.paul.inventory_management.repository.RoleRepository;
+import com.paul.inventory_management.security.SecurityBeans;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,6 +31,8 @@ public class AppUserService {
 	private final AppUserRepository appUserRepository;
 	private final RoleRepository roleRepository;
 	private final AppUserMapper appUserMapper;
+	
+	private final PasswordEncoder passwordEncoder;
 	
 	// TODO: encrypt password
 	public AppUserResponseDTO create(AppUserCreateDTO dto)  {
@@ -41,6 +47,8 @@ public class AppUserService {
 		
 		user.setStatus(Status.ACTIVE);
 		
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		
 		AppUser savedUser = appUserRepository.save(user);
 		
 		return appUserMapper.toDTO(savedUser);
@@ -52,6 +60,14 @@ public class AppUserService {
 		AppUser user = appUserRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
 		
 		return appUserMapper.toDTO(user);
+		
+	}
+
+	public AppUser findEntityById(Long id) {
+		
+		AppUser user = appUserRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
+
+		return user;
 		
 	}
 	
@@ -76,7 +92,7 @@ public class AppUserService {
 		
 		AppUser user = appUserRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
 		
-		if (appUserRepository.existsByStatus(id)) {
+		if (user.getStatus() == Status.INACTIVE) {
 			throw new BusinessRuleException("Can not update a user inactive");
 		}
 		
@@ -103,10 +119,10 @@ public class AppUserService {
 		}
 		
 		if (dto.password() != null && !dto.password().isBlank()) { 
-			user.setPassword(dto.password());
+			user.setPassword(passwordEncoder.encode(user.getPassword()));
 		}
 		
-		if (dto.role() != null || dto.role() != 0) {
+		if (dto.role() != null && dto.role() != 0) {
 			
 			Role newRole = roleRepository.findById(dto.role()).orElseThrow(() -> new ResourceNotFoundException("Role not found with id " + dto.role()));
 			
