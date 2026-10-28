@@ -20,7 +20,6 @@ import com.paul.inventory_management.exception.ResourceNotFoundException;
 import com.paul.inventory_management.mapper.AppUserMapper;
 import com.paul.inventory_management.repository.AppUserRepository;
 import com.paul.inventory_management.repository.RoleRepository;
-import com.paul.inventory_management.security.SecurityBeans;
 
 import lombok.RequiredArgsConstructor;
 

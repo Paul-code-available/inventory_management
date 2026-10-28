@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.paul.inventory_management.entity.AppUser;
+import com.paul.inventory_management.enums.Status;
 import com.paul.inventory_management.exception.ResourceNotFoundException;
 import com.paul.inventory_management.repository.AppUserRepository;
 
@@ -34,7 +35,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 		return User.builder()
 				.username(user.getEmail())
 				.password(user.getPassword())
-				.authorities(new SimpleGrantedAuthority(user.getRole().getName()))
+				.authorities(new SimpleGrantedAuthority("ROLE_" + user.getRole().getName()))
+				.disabled(user.getStatus() != Status.ACTIVE)
 				.build();
 
 	}	

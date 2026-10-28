@@ -21,6 +21,7 @@ import com.paul.inventory_management.security.SecurityConfig;
 import com.paul.inventory_management.service.AppUserService;
 import com.paul.inventory_management.service.JwtService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -34,7 +35,7 @@ public class AuthController {
 	private final JwtService jwtService;
 	
 	@PostMapping("/login")
-	public String login(@RequestBody LoginRequestDTO loginRequest) {
+	public String login (@Valid @RequestBody LoginRequestDTO loginRequest) {
 		
 		UsernamePasswordAuthenticationToken authRequest = 
 				new UsernamePasswordAuthenticationToken(loginRequest.email(), loginRequest.password());
