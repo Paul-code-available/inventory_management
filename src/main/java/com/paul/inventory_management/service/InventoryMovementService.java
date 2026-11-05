@@ -7,12 +7,16 @@ import org.springframework.stereotype.Service;
 
 import com.paul.inventory_management.dto.InventoryMovementCreateDTO;
 import com.paul.inventory_management.dto.InventoryMovementResponseDTO;
+import com.paul.inventory_management.entity.AppUser;
 import com.paul.inventory_management.entity.InventoryMovement;
 import com.paul.inventory_management.entity.Product;
 import com.paul.inventory_management.enums.MovementType;
+import com.paul.inventory_management.enums.Status;
 import com.paul.inventory_management.exception.BusinessRuleException;
 import com.paul.inventory_management.exception.ResourceNotFoundException;
+import com.paul.inventory_management.mapper.AppUserMapper;
 import com.paul.inventory_management.mapper.InventoryMovementMapper;
+import com.paul.inventory_management.repository.AppUserRepository;
 import com.paul.inventory_management.repository.InventoryMovementRepository;
 import com.paul.inventory_management.repository.ProductRepository;
 
@@ -27,16 +31,27 @@ public class InventoryMovementService {
 	private final InventoryMovementMapper inventoryMovementMapper;
 	
 	private final ProductRepository productRepository;
+	private final AppUserRepository appUserRepository;	
 	
 	@Transactional
-	public InventoryMovementResponseDTO create(InventoryMovementCreateDTO dto) {
-		
-		// TODO: Assign authenticated user when Spring Security is implemented.
-		
+	public InventoryMovementResponseDTO create(InventoryMovementCreateDTO dto, String email) {
+				
 		Product product = productRepository.findById(dto.productId()).orElseThrow(() 
 				-> new ResourceNotFoundException("Product not found with id " + dto.productId())); 
 		
+		if (product.getStatus() == Status.INACTIVE) {
+			throw new BusinessRuleException("Product " + product.getName() + " is inactive");
+		}
+		
 		InventoryMovement inventoryMovement = inventoryMovementMapper.toEntity(dto, product);
+		
+		AppUser user = appUserRepository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("User not found with email " + email));
+		
+		if (user.getStatus() == Status.INACTIVE) {
+			throw new BusinessRuleException("User " + user.getFirstName() + " is inactive");
+		}
+		
+		inventoryMovement.setUser(user);
 		
 		if (inventoryMovement.getMovementType() == null) {
 			
@@ -78,6 +93,8 @@ public class InventoryMovementService {
 			
 			product.setStock(product.getStock() + inventoryMovement.getQuantity());
 			
+			
+			
 			inventoryMovement.setStockAfter(product.getStock());
 			
 		} 
@@ -94,19 +111,23 @@ public class InventoryMovementService {
 			
 			product.setStock(product.getStock() + inventoryMovement.getQuantity());
 			
+			if (product.getStock() < 0) {
+				throw new BusinessRuleException("Product stock can not be negative");
+			}
+			
 			inventoryMovement.setStockAfter(product.getStock());
 			
 		} 
 		
 		if (product.getStock() <= product.getMinimumStock()) {
 			
-			// throw new BusinessRuleException("");
+			LOGGER
 			
 		}
 		
-		productRepository.save(product);
-		
 		inventoryMovement.setUnitCost(product.getPurchasePrice());
+		
+		productRepository.save(product);
 
 		InventoryMovement inventoryMovementSaved = inventoryMovementRepository.save(inventoryMovement);
 		

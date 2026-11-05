@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,9 +27,9 @@ public class InventoryMovementController {
 	private final InventoryMovementService inventoryMovementService;
 	
 	@PostMapping
-	public ResponseEntity<InventoryMovementResponseDTO> create(@Valid @RequestBody InventoryMovementCreateDTO dto) {
+	public ResponseEntity<InventoryMovementResponseDTO> create(@Valid @RequestBody InventoryMovementCreateDTO dto, Authentication authentication) {
 		
-		InventoryMovementResponseDTO response = inventoryMovementService.create(dto);
+		InventoryMovementResponseDTO response = inventoryMovementService.create(dto, authentication.getName());
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 		
