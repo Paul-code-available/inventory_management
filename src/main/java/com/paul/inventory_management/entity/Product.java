@@ -20,6 +20,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -48,6 +49,9 @@ public class Product {
 	
 	private Integer stock;
 	private int minimumStock;
+	
+	@Version
+	private Integer version;
 	
 	@Column(name = "image_url")
 	private String imageUrl;

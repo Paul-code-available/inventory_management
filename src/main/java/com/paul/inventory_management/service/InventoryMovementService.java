@@ -1,5 +1,7 @@
 package com.paul.inventory_management.service;
 
+import java.io.ObjectInputStream.GetField;
+import java.lang.System.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +24,9 @@ import com.paul.inventory_management.repository.ProductRepository;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class InventoryMovementService {
@@ -32,7 +36,7 @@ public class InventoryMovementService {
 	
 	private final ProductRepository productRepository;
 	private final AppUserRepository appUserRepository;	
-	
+
 	@Transactional
 	public InventoryMovementResponseDTO create(InventoryMovementCreateDTO dto, String email) {
 				
@@ -121,7 +125,7 @@ public class InventoryMovementService {
 		
 		if (product.getStock() <= product.getMinimumStock()) {
 			
-			LOGGER
+			log.warn("Product stock is low");
 			
 		}
 		

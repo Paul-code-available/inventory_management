@@ -2,6 +2,7 @@ package com.paul.inventory_management.exception;
 
 import java.time.LocalDateTime;
 
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -49,7 +50,18 @@ public class GlobalExceptionHandler {
 		
 	}
 	
-	
+	@ExceptionHandler(OptimisticLockingFailureException.class)
+	public ResponseEntity<?> handleOptimisticLock(
+	        OptimisticLockingFailureException ex) {
+
+	    ErrorResponseDTO error = new ErrorResponseDTO(
+	    		HttpStatus.CONFLICT.value(),
+	    		ex.getMessage()
+	    		);
+	    
+	    return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+	    
+	}
 	
 	
 

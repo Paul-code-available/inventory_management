@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Positive;
 
 public record InventoryMovementCreateDTO(
 	
-		
+		@NotNull
 		MovementType movementType,
 		
 		@NotNull(message = "La cantidad es obligatoria")
